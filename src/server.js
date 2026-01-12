@@ -1,10 +1,17 @@
+import cors from 'cors';
 import { configDotenv } from 'dotenv';
 import express from 'express';
 import connectDB from './config/db.js';
 
+import userRoutes from './routes/userRoutes.js';
+
 const app = express();
 configDotenv();
 const port = process.env.PORT || 3001;
+app.use(cors());
+app.use(express.json());
+
+app.use('/user', userRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hey developer, Noting here on root');
