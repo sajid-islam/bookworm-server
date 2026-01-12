@@ -1,6 +1,7 @@
 import express from 'express';
 import cloudinary from '../config/cloudinary.js';
 import { generateToken } from '../lib/generateToken.js';
+import verifyToken from '../middleware/verifyToken.middleware.js';
 import { User } from '../model/User.js';
 
 const router = express.Router();
@@ -13,6 +14,24 @@ const cookieOptions = {
   httpOnly: true,
   maxAge: 30 * 24 * 60 * 60 * 1000,
 };
+
+router.get('/me', verifyToken, async (req, res) => {
+  const email = req.user.email;
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Hmm… this user doesn’t exist anymore' });
+    }
+
+    res
+      .status(200)
+      .json({ user: { _id: user._id, name: user.name, email: user.email, photo: user.photo } });
+  } catch (error) {
+    console.error('Error on getting /me(user)', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 router.post('/registration', async (req, res) => {
   const { name, email, photoFile, password } = req.body;
