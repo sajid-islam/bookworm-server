@@ -50,4 +50,11 @@ router.post('/registration', async (req, res) => {
   }
 });
 
+router.delete('/logout', async (req, res) => {
+  return res
+    .clearCookie('token', { ...cookieOptions, maxAge: 0 })
+    .status(200)
+    .json({ message: 'Successfully logout ' });
+});
+
 export default router;
