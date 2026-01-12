@@ -33,7 +33,7 @@ router.get('/me', verifyToken, async (req, res) => {
   }
 });
 
-router.post('/registration', async (req, res) => {
+router.post('/register', async (req, res) => {
   const { name, email, photoFile, password } = req.body;
   try {
     if (!name || !email || !password || !photoFile) {
