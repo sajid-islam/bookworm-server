@@ -50,6 +50,45 @@ router.post('/registration', async (req, res) => {
   }
 });
 
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    if (!email) {
+      return res
+        .status(400)
+        .json({ message: 'Nice try, But we can’t email a ghost. Please add your email!' });
+    }
+
+    if (!password) {
+      return res.status(400).json({
+        message: 'Password not found. Hackers are celebrating',
+      });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'Wrong credentials' });
+    }
+
+    const isPasswordCorrect = await user.comparePassword(password);
+    if (!isPasswordCorrect) {
+      return res.status(404).json({ message: 'Wrong credentials' });
+    }
+
+    const token = generateToken({ email });
+    res
+      .cookie('token', token, cookieOptions)
+      .status(200)
+      .json({
+        user: { _id: user._id, name: user.name, email: user.email, photo: user.photo },
+      });
+  } catch (error) {
+    console.error('Error on login to a user', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 router.delete('/logout', async (req, res) => {
   return res
     .clearCookie('token', { ...cookieOptions, maxAge: 0 })
