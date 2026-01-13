@@ -53,4 +53,20 @@ router.get('/', verifyToken, async (req, res) => {
   }
 });
 
+router.get('/:id', verifyToken, async (req, res) => {
+  const bookId = req.params.id;
+  try {
+    const book = await Book.findById(bookId).populate('genre');
+
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+
+    res.status(200).json({ book });
+  } catch (error) {
+    console.error('Error fetching book', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 export default router;
