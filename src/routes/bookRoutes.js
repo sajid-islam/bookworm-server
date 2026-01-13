@@ -69,4 +69,40 @@ router.get('/:id', verifyToken, async (req, res) => {
   }
 });
 
+router.put('/:id', verifyToken, verifyAdmin, async (req, res) => {
+  const { title, author, genre, description, coverFile } = req.body;
+
+  try {
+    const book = await Book.findById(req.params.id);
+
+    if (!book) {
+      return res.status(404).json({ message: 'Book not found' });
+    }
+
+    if (coverFile) {
+      const coverUploadRes = await cloudinary.uploader.upload(coverFile);
+      book.coverImage = coverUploadRes.secure_url;
+    }
+
+    if (genre) {
+      const genreExists = await Genre.findById(genre);
+      if (!genreExists) {
+        return res.status(404).json({ message: 'Selected genre does not exist' });
+      }
+      book.genre = genre;
+    }
+
+    book.title = title ?? book.title;
+    book.author = author ?? book.author;
+    book.description = description ?? book.description;
+
+    await book.save();
+
+    res.status(200).json({ message: 'Book updated successfully', book });
+  } catch (error) {
+    console.error('Error updating book', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 export default router;
