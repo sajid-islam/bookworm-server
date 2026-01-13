@@ -40,4 +40,17 @@ router.post('/', verifyToken, verifyAdmin, async (req, res) => {
   }
 });
 
+router.get('/', verifyToken, async (req, res) => {
+  try {
+    const books = await Book.find({ isDeleted: false })
+      .populate('genre', 'name')
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ books });
+  } catch (error) {
+    console.error('Error fetching books', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 export default router;
