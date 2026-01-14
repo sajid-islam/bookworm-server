@@ -6,6 +6,7 @@ import connectDB from './config/db.js';
 import bookRoutes from './routes/bookRoutes.js';
 import genreRoutes from './routes/genreRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import tutorialRoutes from './routes/tutorialRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/user', userRoutes);
 app.use('/book', bookRoutes);
 app.use('/genre', genreRoutes);
 app.use('/review', reviewRoutes);
+app.use('/tutorial', tutorialRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hey developer, Noting here on root');
