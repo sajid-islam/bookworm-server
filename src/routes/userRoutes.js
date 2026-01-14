@@ -9,8 +9,8 @@ const router = express.Router();
 const isProduction = process.env.NODE_ENV === 'production';
 
 const cookieOptions = {
-  sameSite: isProduction ? 'none' : 'strict',
-  secure: isProduction ? true : false,
+  sameSite: 'none',
+  secure: true,
   httpOnly: true,
   maxAge: 30 * 24 * 60 * 60 * 1000,
 };
