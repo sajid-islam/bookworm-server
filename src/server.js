@@ -23,11 +23,11 @@ app.use(
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser());
 
-app.use('/user', userRoutes);
-app.use('/book', bookRoutes);
-app.use('/genre', genreRoutes);
-app.use('/review', reviewRoutes);
-app.use('/tutorial', tutorialRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/book', bookRoutes);
+app.use('/api/genre', genreRoutes);
+app.use('/api/review', reviewRoutes);
+app.use('/api/tutorial', tutorialRoutes);
 
 job.start();
 
