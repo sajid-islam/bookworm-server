@@ -4,6 +4,7 @@ import express from 'express';
 import connectDB from './config/db.js';
 
 import bookRoutes from './routes/bookRoutes.js';
+import genreRoutes from './routes/genreRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json({ limit: '10mb' }));
 
 app.use('/user', userRoutes);
 app.use('/book', bookRoutes);
+app.use('/genre', genreRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hey developer, Noting here on root');
