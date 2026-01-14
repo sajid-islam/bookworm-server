@@ -66,7 +66,6 @@ router.put('/:id', verifyToken, verifyAdmin, async (req, res) => {
     tutorial.description = description ?? tutorial.description;
     tutorial.youtubeUrl = youtubeUrl ?? tutorial.youtubeUrl;
     tutorial.isActive = isActive ?? tutorial.isActive;
-    tutorial.order = order ?? tutorial.order;
 
     await tutorial.save();
 
