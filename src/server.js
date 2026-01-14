@@ -12,6 +12,7 @@ import tutorialRoutes from './routes/tutorialRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
+
 configDotenv();
 const port = process.env.PORT || 3001;
 
