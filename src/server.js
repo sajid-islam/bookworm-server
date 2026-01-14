@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { configDotenv } from 'dotenv';
 import express from 'express';
@@ -14,6 +15,7 @@ configDotenv();
 const port = process.env.PORT || 3001;
 app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
 app.use(express.json({ limit: '10mb' }));
+app.use(cookieParser());
 
 app.use('/user', userRoutes);
 app.use('/book', bookRoutes);
