@@ -14,6 +14,9 @@ import userRoutes from './routes/userRoutes.js';
 const app = express();
 configDotenv();
 const port = process.env.PORT || 3001;
+
+app.set('trust proxy', 1);
+
 app.use(
   cors({ origin: ['http://localhost:3000', 'https://bookworm-new.vercel.app'], credentials: true })
 );
