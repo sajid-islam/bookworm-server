@@ -8,6 +8,7 @@ import job from './lib/cron.js';
 import bookRoutes from './routes/bookRoutes.js';
 import genreRoutes from './routes/genreRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import statsRoutes from './routes/statsRoutes.js';
 import tutorialRoutes from './routes/tutorialRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
@@ -31,6 +32,7 @@ app.use('/api/book', bookRoutes);
 app.use('/api/genre', genreRoutes);
 app.use('/api/review', reviewRoutes);
 app.use('/api/tutorial', tutorialRoutes);
+app.use('/api/stats', statsRoutes);
 
 job.start();
 
