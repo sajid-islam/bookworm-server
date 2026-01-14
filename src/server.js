@@ -20,6 +20,7 @@ app.set('trust proxy', 1);
 app.use(
   cors({ origin: ['http://localhost:3000', 'https://bookworm-new.vercel.app'], credentials: true })
 );
+
 app.use(express.json({ limit: '10mb' }));
 
 app.use(cookieParser());
