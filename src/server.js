@@ -4,6 +4,7 @@ import { configDotenv } from 'dotenv';
 import express from 'express';
 import connectDB from './config/db.js';
 
+import job from './lib/cron.js';
 import bookRoutes from './routes/bookRoutes.js';
 import genreRoutes from './routes/genreRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
@@ -22,6 +23,8 @@ app.use('/book', bookRoutes);
 app.use('/genre', genreRoutes);
 app.use('/review', reviewRoutes);
 app.use('/tutorial', tutorialRoutes);
+
+job.start();
 
 app.get('/', (req, res) => {
   res.send('Hey developer, Noting here on root');
