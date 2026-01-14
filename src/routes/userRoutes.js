@@ -24,9 +24,15 @@ router.get('/me', verifyToken, async (req, res) => {
       return res.status(404).json({ message: 'Hmm… this user doesn’t exist anymore' });
     }
 
-    res
-      .status(200)
-      .json({ user: { _id: user._id, name: user.name, email: user.email, photo: user.photo } });
+    res.status(200).json({
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        photo: user.photo,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error('Error on getting /me(user)', error);
     res.status(500).json({ message: 'Internal Server Error' });
